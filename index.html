@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial scale=1">
+    <meta name="viewport" content="width=device-width">
     <title>repl.it</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
-    <link href="main.css" rel="stylesheet" type="text/css">
+    <link href="index.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:300i" rel="stylesheet">
 
     <title>Capstone Bitcoin Api for Thinkful</title>
@@ -16,23 +16,27 @@
     <main role="main">
 
         <section>
-            <nav class="nav-bar" id="nav-start">
+            <nav role="navigation" class="nav-bar" id="nav-start">
                 <li><a data-page="start-page" class="menu" id="start-page" href="#">Home Page</a></li>
                 <li><a data-page="history-page" class="menu" id="history-page" href="#">Historic Data</a></li>
-                <li><a data-page="crypto-page" class="menu" id="crypto-page" href="#" onclick="getCryptoExchange()">Cryptocompare</a></li>
+                <li><a data-page="crypto-page" class="menu" id="crypto-page" href="#" onclick="fetchCryptoExchangeRates()">Crypto Rates</a></li>
                 <li><a data-page="calc-page" class="menu" id="calc-page" href="#">Bitcoin Exchange</a></li>
             </nav>
         </section>
 
         <section class="start-page page">
             <h1 class="start-head">THE STATE OF THE COIN</h1>
-            <div class="transbox">
-                <p class="header"> With the most current world market exchange rates and financial data, as well as the option to research and analyze price trends of Bitcoin and several other popular cryptocurrencies, this is your source for all things Bitcoin!</p>
-            </div>
+
+            <p class="header"> Offering real-time and historic exchange rates in key world markets as well as current pricing of the most popular cryptocurrencies
+            </p>
+            <p class="head2">
+                This is your source for all things Bitcoin!</p>
+
+
             <table border="5">
                 <tr>
-                    <th colspan="2">
-                        <h3 class="firstValue"><br></h3>
+                    <th colspan="2" class="firstValue">
+                        <br>
                     </th>
                 </tr>
                 <tr>
@@ -76,69 +80,102 @@
         <section class='history-page page'>
             <form class="format" name="h-form" action="#" onsubmit="return false;">
                 <fieldset class="fSet">
-                    <div class="transbox">
-                        <p class="history" id="hist"> Create a custom search to previous price variances and trends for Bitcoin by entering beginning and ending dates for your query below.</p>
-                    </div>
-                    <p class="difference">
+                    <h2>LEGACY PRICING</h2>
+                    <p class="history" id="hist"> Enter beginning and ending dates to see the variance in Bitcoin's value for the selected time frame. </p>
+
+                    <section class="enterDates" id="enterDates">
+                       <label for="start-date">Start Date:</label>
                         <input type='text' pattern='[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])' name='startDate' id='startDate' placeholder="YYYY-MM-DD" title="date to begin search" required />
 
-                        <label for="start-date">Start Date</label>
+                        
                         <br />
+                        <label for="end-date">End Date: </label>
                         <input type='text' pattern='[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])' name='endDate' id='endDate' placeholder="YYYY-MM-DD" title="date to end search" required />
-                        <label for="end-date"> End Date </label>
-                        <p id="press">Press enter to submit search.</p>
-                        <button class="buttons" id="submit" type="submit" onclick="fetchBitData();">Enter</button>
+                        
+                    </section>
+                    <section class="difference" id="difference">
+                    </section>
+                    <br />
+                    <br />
+                    <button class="buttons" id="btnSubmitDates" type="submit" onclick="fetchBitcoinHistoricData();">Enter</button>
+                    <button class="buttons" id="btnResetDates" onclick="resetHistoricData()" hidden="hidden">Start Over</button>
+
+                    <p class="press" id="press">Press enter to submit search.</p>
+
+                    <p class="diffTxt" id="diff"></p>
+
+                    <br />
+                    <br />
                 </fieldset>
             </form>
-            <br />
-            <br />
         </section>
 
         <section class="crypto-page page">
             <form class="format" name="cr-form" action="#" onsubmit="return false;">
-                <h3 class="crypto-head"> Cryptocurrency exchange rates</h3>
-                <p>**All results are calculated in USD**</p>
+
+                <h3 class="crypto-head">CRYPTOCURRIENCY EXCHANGE</h3>
+
+                <p class="exc">**All results are calculated in USD**</p>
                 <table border="5">
                     <tr>
-                        <th colspan="2">
-                            <h4 class="firstValue"><br></h4>
+                        <th colspan="2" class="firstValue"                          ><br>
                         </th>
                     </tr>
                     <tr>
-                        <td class="LITE">Litecoin</td>
+                        <td class="give">GIVE - Givecoin</td>
+                        <td><span id="GIVE"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="LITE">LITE - Litecoin</td>
                         <td><span id="Lite"></span></td>
                     </tr>
                     <tr>
-                        <td class="IOTA">Iota </td>
+                        <td class="IOTA">IOTA - Iota </td>
                         <td><span id="IOTA"></span></td>
                     </tr>
                     <tr>
-                        <td class="OMNI">Omni </td>
+                        <td class="OMNI">ONMI - Omni </td>
                         <td><span id="OMNI"></span></td>
                     </tr>
                     <tr>
-                        <td class="SWIFT">SwiftCoin </td>
+                        <td class="SWIFT">SWIFT - SwiftCoin </td>
                         <td><span id="SWIFT"></span></td>
                     </tr>
                     <tr>
-                        <td class="BURST">BurstCoin </td>
+                        <td class="BURST">BURST - BurstCoin </td>
                         <td><span id="BURST"></span></td>
                     </tr>
                     <tr>
-                        <td class="TIT">Titcoin</td>
+                        <td class="TIT">TIT - Titcoin</td>
                         <td><span id="TIT"></span></td>
                     </tr>
                     <tr>
-                        <td class="WOLF">WolfCoin </td>
+                        <td class="WOLF">WOLF - WolfCoin </td>
                         <td><span id="WOLF"></span></td>
                     </tr>
                     <tr>
-                        <td class="POT">PotCoin </td>
+                        <td class="POT">POT - PotCoin </td>
                         <td><span id="POT"></span></td>
                     </tr>
                     <tr>
-                        <td class="ETH">Etherum </td>
+                        <td class="ETH">ETH - Etherum </td>
                         <td><span id="ETH"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="SUP">SUP - Supcoin </td>
+                        <td><span id="SUP"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="GEO">GEO - GeoCoin </td>
+                        <td><span id="GEO"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="ALF">ALF - AlphaCoin </td>
+                        <td><span id="ALF"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="XPD">XPD - PetroDollar </td>
+                        <td><span id="XPD"></span></td>
                     </tr>
                 </table>
             </form>
@@ -146,65 +183,69 @@
 
         <section class='calc-page page'>
             <form class="format" name="c-form" action="#" onsubmit="return false;">
-                <h5>What's in your wallet?</h5>
-                <p class="calc-head">Calculate the current value of your bitcoin in USD as well as other markets world-wide. </p>
-                <label for="bitcoinAmount" required>Bitcoin amount to exchange: </label>
-                <input type='text' pattern='/^\$?(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/;' name='bitcoinAmount' id='bitcoinAmount' placeholder="$0,000.00" title="Dollar amount to be exchanged" required/>
-                <button class="buttons" id="calculate" type="submit" onclick="fetchExchangeData();">Calculate</button>
+                <h4>WHAT'S IN YOUR WALLET?</h4>
+
+                <label for="bitcoinAmount" required>Number of bitcoins to exchange: </label>
+                <br />
+                <br />
+                <input type='number' name='bitcoinAmount' id="bitcoinAmount" placeholder="0" title="Number of bitcoins to exchange" required/> <!--pattern='/^\$?(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/;'-->
+                <button class="buttons" id="btnCalculateRates" type="submit" onclick="fetchBitcoinExchangeData();">Calculate</button>
+
+                <button class="buttons" id="btnResetRates" onclick="resetBitcoinExchange()" hidden="hidden">Start Over</button>
+                <section class="exchangeOut" id="exchangeOutput">
+                    <table border="5" class="exchangeOutput">
+                        <tr>
+                            <th colspan="2"><span class="exchangeRates">Market Exchange Rates<br></span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Market</th>
+                            <th>Value</th>
+                            <tr>
+                                <td>USD - United States Dollar</td>
+                                <td><span id="USD"></span></td>
+                            </tr>
+                            <tr>
+                                <td>GBP - Great British Pound</td>
+                                <td><span id="GBP"></span></td>
+                            </tr>
+                            <tr>
+                                <td>CNY - New Chinese Yen</td>
+                                <td><span id="CNY"></span></td>
+                            </tr>
+                            <tr>
+                                <td>JPY - Japanese Yen</td>
+                                <td><span id="JPY"></span></td>
+                            </tr>
+                            <tr>
+                                <td>EUR - Euro</td>
+                                <td><span id="EUR"></span></td>
+                            </tr>
+                            <tr>
+                                <td>TWD - Taiwanese Dollar</td>
+                                <td><span id="TWD"></span></td>
+                            </tr>
+                            <tr>
+                                <td>RUB - Russian Ruble</td>
+                                <td><span id="RUB"></span></td>
+                            </tr>
+                            <tr>
+                                <td>CHF - Swiss Franc</td>
+                                <td><span id="CHF"></span></td>
+                            </tr>
+                            <tr>
+                                <td>AUD - Australian Dollar</td>
+                                <td><span id="AUD"></span></td>
+                            </tr>
+                    </table>
+                </section>
+                <p class="link">
+                    To buy or sell Bitcoin, or to get a FREE WALLET, click <a href="https://www.bitcoin.com/choose-your-wallet/bitcoin-com-wallet">here</a>
+                </p>
             </form>
-            <section class="exchangeOutput" id="exchangeOutput">
-                <table border="5" class="exchangeOutput">
-                    <tr>
-                        <th colspan="2">
-                            <h3><br>Exchange Rates<br></h3>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Market</th>
-                        <th>Value</th>
-                        <tr>
-                            <td>USD - United States Dollar</td>
-                            <td><span id="USD"></span></td>
-                        </tr>
-                        <tr>
-                            <td>GBP - Great British Pound</td>
-                            <td><span id="GBP"></span></td>
-                        </tr>
-                        <tr>
-                            <td>CNY - New Chinese Yen</td>
-                            <td><span id="CNY"></span></td>
-                        </tr>
-                        <tr>
-                            <td>JPY - Japanese Yen</td>
-                            <td><span id="JPY"></span></td>
-                        </tr>
-                        <tr>
-                            <td>EUR - Euro</td>
-                            <td><span id="EUR"></span></td>
-                        </tr>
-                        <tr>
-                            <td>TWD - Taiwanese Dollar</td>
-                            <td><span id="TWD"></span></td>
-                        </tr>
-                        <tr>
-                            <td>RUB - Russian Ruble</td>
-                            <td><span id="RUB"></span></td>
-                        </tr>
-                </table>
-            </section>
-            <p class="link">
-                To buy or sell Bitcoin, or to get a FREE WALLET, click <a href="https://www.bitcoin.com/choose-your-wallet/bitcoin-com-wallet">here</a>
-            </p>
         </section>
-        <section class="news-page page">
-            <div class="news-name">
-
-            </div>
-        </section>
-
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
-
 </html>
