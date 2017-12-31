@@ -1,4 +1,4 @@
-const crypto = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=USD&tsyms=BTC,LITE,ETH,GIVE,SUP,GEO,WOLF,ALF,XPD,SWIFT,OMNI,IOTA,RIPPLE,TIT,DASH,BURST,POT&extraParams=your_app_name";
+const crypto = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,LTC,ETH,QTUM,GEO,BTG,ETC,XRP,SWIFT,OMNI,IOT,XEM,DASH,BCH,ZEC&tsyms=USD&extraParams=your_app_name";
 const starts = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD";
 const histo = "https://api.coindesk.com/v1/bpi/historical/close.json";
 const calcExchange = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,GBP,CNY,JPY,EUR,TWD,JPY,RUB,CHF,CAD,AUD,SGD";
@@ -26,7 +26,6 @@ function resetHistoricData() {
    // Show and hide the specific HTML sections and buttons
    $("#enterDates").show();
    $("#difference").hide();
-
    $("#btnSubmitDates").show();
    $("#btnResetDates").hide();
 }
@@ -102,11 +101,8 @@ function showHistoricData(results) {
 
    // Show and hide the specific HTML sections
    $("#difference").show();
-   $("#enterDates").hide();
-
-   $("#btnSubmitDates").hide();
    $("#btnResetDates").show();
-   $('#press').hide();
+   $('#btnSubmitDates').hide();
 
    $('.difference').text("The variance in the value of Bitcoin for the selected dates is:  $" + difference.toFixed(2));
 }
@@ -119,34 +115,32 @@ function fetchCryptoExchangeRates() {
 }
 
 function showCryptoExchangeRates(results) {
-   let lite = results.USD.LITE;
-   $(`#Lite`).text("$" + lite.toFixed(2));
-   let iota = results.USD.IOTA;
-   $(`#IOTA`).text("$" + iota.toFixed(2));
-   let omni = results.USD.OMNI;
+   let lite = results.LTC.USD;
+   $(`#lite`).text("$" + lite.toFixed(2));
+   let iot = results.IOT.USD;
+   $(`#IOT`).text("$" + iot.toFixed(2));
+   let omni = results.OMNI.USD;
    $(`#OMNI`).text("$" + omni);
-   let swift = results.USD.SWIFT;
+   let swift = results.SWIFT.USD;
    $(`#SWIFT`).text("$" + swift.toFixed(2));
-   let burst = results.USD.BURST;
-   $(`#BURST`).text("$" + burst.toFixed(2));
-   let tit = results.USD.TIT;
-   $(`#TIT`).text("$" + tit.toFixed(2));
-   let wolf = results.USD.WOLF;
-   $(`#WOLF`).text("$" + wolf.toFixed(2));
-   let pot = results.USD.POT;
-   $(`#POT`).text("$" + pot.toFixed(2));
-   let eth = results.USD.ETH;
+   let qtum = results.QTUM.USD;
+   $(`#QTUM`).text("$" + qtum.toFixed(2));
+   let xem = results.XEM.USD;
+   $(`#XEM`).text("$" + xem.toFixed(2));
+   let zec= results.ZEC.USD;
+   $(`#ZEC`).text("$" + zec.toFixed(2));
+   let bch = results.BCH.USD;
+   $(`#BCH`).text("$" + bch.toFixed(2));
+   let eth = results.ETH.USD;
    $(`#ETH`).text("$" + eth);
-   let give = results.USD.GIVE;
-   $(`#GIVE`).text("$" + give);
-   let sup = results.USD.SUP;
-   $(`#SUP`).text("$" + sup);
-   let geo = results.USD.GEO;
-   $(`#GEO`).text("$" + geo);
-   let alf = results.USD.ALF;
-   $(`#ALF`).text("$" + alf);
-   let xpd = results.USD.XPD;
-   $(`#XPD`).text("$" + xpd);
+   let btg = results.BTG.USD;
+   $(`#BTG`).text("$" + btg.toFixed(2));
+   let geo = results.GEO.USD;
+   $(`#GEO`).text("$" + geo.toFixed(2));
+   let etc = results.ETC.USD;
+   $(`#ETC`).text("$" + etc);
+   let xrp = results.XRP.USD;
+   $(`#XRP`).text("$" + xrp);
 }
 
 function fetchBitcoinExchangeData() {
@@ -168,10 +162,10 @@ function showBitcoinExchangeData(results) {
    $(`#GBP`).text("£" + gbp2.toFixed(2));
    let cny = results.CNY;
    let cny2 = (cny * amount);
-   $(`#CNY`).text("¥" + cny2.toFixed(2));
+   $(`#CNY`).text("¥" + cny2);
    let jpy = results.JPY;
    let jpy2 = (jpy * amount);
-   $(`#JPY`).text("¥" + jpy2.toFixed(2));
+   $(`#JPY`).text("¥" + jpy2);
    let eur = results.EUR;
    let eur2 = (eur * amount);
    $(`#EUR`).text("€" + eur2.toFixed(2));
